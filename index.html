@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>វចនានុក្រមខ្មែរ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hanuman:wght@400;600&family=Kantumruy+Pro:wght@400;600&family=Battambang:wght@400;600&family=Bayon&family=Nokora:wght@400;600&family=Moul&family=Chenla&family=Content&family=Khmer&family=Koulen&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <div class="container header-content">
+            <div class="header-title">
+                <h1>វចនានុក្រមខ្មែរ</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container main-content">
+        <section id="home" class="search-section">
+            <h2 class="search-title">
+                <i class="fas fa-search"></i> ស្វែងរកពាក្យ
+            </h2>
+            <form id="searchForm" class="search-form">
+                <input type="text" id="searchInput" class="search-input" placeholder="ស្វែងរកពាក្យ...">
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-play"></i> ស្វែងរក
+                </button>
+            </form>
+            <div id="result">
+                </div>
+        </section>
+
+        <section id="history-section" class="hidden-section">
+            <h3><i class="fas fa-history"></i> ប្រវត្តិស្វែងរក</h3>
+            <ul id="history-list">
+                </ul>
+        </section>
+
+        <section id="bookmark-section" class="hidden-section">
+            <h3><i class="fas fa-bookmark"></i> ពាក្យចំណាំ</h3>
+            <p>You can add words to your bookmarks by clicking a bookmark icon (feature not yet implemented).</p>
+            <ul id="bookmark-list">
+                </ul>
+        </section>
+
+        <section id="about-us" class="hidden-section">
+            <h3><i class="fas fa-info-circle"></i> អំពីពួកយើង</h3>
+            <p>This is a simple Khmer Dictionary web application created to help users find definitions of Khmer words.</p>
+        </section>
+
+        <section id="contact-us" class="hidden-section">
+            <h3><i class="fas fa-envelope"></i> ទំនាក់ទំនង</h3>
+            <p>If you have any questions or feedback, please contact us at example@example.com.</p>
+        </section>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 វចនានុក្រមខ្មែរ. រក្សាសិទ្ធិគ្រប់យ៉ាង។</p>
+    </div>
+
+    <div class="footer-menu">
+        <a href="#" onclick="goToTop(event)">
+            <i class="fas fa-home"></i>
+            <span>ទំព័រដើម</span>
+        </a>
+        <a href="#" id="history-btn">
+            <i class="fas fa-history"></i>
+            <span>ប្រវត្តិ</span>
+        </a>
+        <a href="#" id="bookmark-btn">
+            <i class="fas fa-bookmark"></i>
+            <span>ចំណាំ</span>
+        </a>
+        <a href="#" onclick="showSection(event, 'about-us')">
+            <i class="fas fa-info-circle"></i>
+            <span>អំពី</span>
+        </a>
+        <a href="#" onclick="showSection(event, 'contact-us')">
+            <i class="fas fa-envelope"></i>
+            <span>ទំនាក់ទំនង</span>
+        </a>
+        <a href="#" onclick="rotateFont(event)">
+            <i class="fas fa-font"></i>
+            <span>ផ្លាស់ប្ដូរពុម្ពអក្សរ</span>
+        </a>
+    </div>
+
+    <div id="iosPrompt" class="ios-prompt">
+        <span id="iosPromptClose" class="ios-prompt-close">&times;</span>
+        Add this to your home screen for a better experience!
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
