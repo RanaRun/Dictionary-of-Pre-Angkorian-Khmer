@@ -7,8 +7,18 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hanuman:wght@400;600&family=Kantumruy+Pro:wght@400;600&family=Battambang:wght@400;600&family=Bayon&family=Nokora:wght@400;600&family=Moul&family=Chenla&family=Content&family=Khmer&family=Koulen&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="វចនានុក្រមខ្មែរ">
+    <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
 </head>
 <body>
+    <div id="loadingScreen" class="loading-screen">
+        <div class="spinner"></div>
+        <p>សូមរង់ចាំ...</p>
+    </div>
+
     <div class="header">
         <div class="container header-content">
             <div class="header-title">
@@ -40,19 +50,19 @@
 
         <section id="bookmark-section" class="hidden-section">
             <h3><i class="fas fa-bookmark"></i> ពាក្យចំណាំ</h3>
-            <p>You can add words to your bookmarks by clicking a bookmark icon (feature not yet implemented).</p>
+            <p>អ្នកអាចបន្ថែមពាក្យទៅក្នុងចំណាំរបស់អ្នកដោយចុចលើរូបតំណាងចំណាំ (មុខងារមិនទាន់បានអនុវត្តពេញលេញ)។</p>
             <ul id="bookmark-list">
                 </ul>
         </section>
 
         <section id="about-us" class="hidden-section">
             <h3><i class="fas fa-info-circle"></i> អំពីពួកយើង</h3>
-            <p>This is a simple Khmer Dictionary web application created to help users find definitions of Khmer words.</p>
+            <p>នេះគឺជាកម្មវិធីវចនានុក្រមខ្មែរដ៏សាមញ្ញមួយ ដែលបង្កើតឡើងដើម្បីជួយអ្នកប្រើប្រាស់ស្វែងរកនិយមន័យនៃពាក្យខ្មែរ។</p>
         </section>
 
         <section id="contact-us" class="hidden-section">
             <h3><i class="fas fa-envelope"></i> ទំនាក់ទំនង</h3>
-            <p>If you have any questions or feedback, please contact us at example@example.com.</p>
+            <p>ប្រសិនបើអ្នកមានសំណួរ ឬមតិកែលម្អណាមួយ សូមទាក់ទងមកយើងខ្ញុំតាមរយៈ example@example.com ។</p>
         </section>
     </div>
 
@@ -61,35 +71,35 @@
     </div>
 
     <div class="footer-menu">
-        <a href="#" onclick="goToTop(event)">
+        <a href="#" id="home-btn-footer">
             <i class="fas fa-home"></i>
             <span>ទំព័រដើម</span>
         </a>
-        <a href="#" id="history-btn">
+        <a href="#" id="history-btn-footer">
             <i class="fas fa-history"></i>
             <span>ប្រវត្តិ</span>
         </a>
-        <a href="#" id="bookmark-btn">
+        <a href="#" id="bookmark-btn-footer">
             <i class="fas fa-bookmark"></i>
             <span>ចំណាំ</span>
         </a>
-        <a href="#" onclick="showSection(event, 'about-us')">
+        <a href="#" id="about-btn-footer">
             <i class="fas fa-info-circle"></i>
             <span>អំពី</span>
         </a>
-        <a href="#" onclick="showSection(event, 'contact-us')">
+        <a href="#" id="contact-btn-footer">
             <i class="fas fa-envelope"></i>
             <span>ទំនាក់ទំនង</span>
         </a>
-        <a href="#" onclick="rotateFont(event)">
+        <a href="#" id="font-rotate-btn-footer">
             <i class="fas fa-font"></i>
-            <span>ផ្លាស់ប្ដូរពុម្ពអក្សរ</span>
+            <span>ពុម្ពអក្សរ</span>
         </a>
     </div>
 
-    <div id="iosPrompt" class="ios-prompt">
-        <span id="iosPromptClose" class="ios-prompt-close">&times;</span>
-        Add this to your home screen for a better experience!
+    <div id="pwaPrompt" class="pwa-prompt">
+        <span id="pwaPromptClose" class="pwa-prompt-close">&times;</span>
+        <p id="pwaPromptText"></p>
     </div>
 
     <script src="script.js"></script>
