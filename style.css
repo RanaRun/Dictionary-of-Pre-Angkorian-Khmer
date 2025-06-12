@@ -14,6 +14,7 @@ body {
   line-height: 1.6;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 .container {
@@ -21,6 +22,7 @@ body {
   margin: 0 auto;
   padding: 0 20px;
   flex: 1;
+  width: 100%; /* Ensure container takes full width on smaller screens */
 }
 
 /* Font Styles */
@@ -45,6 +47,7 @@ body[data-font="Koulen"] { font-family: 'Koulen', sans-serif; }
   z-index: 999;
   padding: 1rem 0;
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 .header-content {
@@ -69,6 +72,7 @@ body[data-font="Koulen"] { font-family: 'Koulen', sans-serif; }
   display: grid;
   gap: 2rem;
   padding: 0 20px;
+  width: 100%;
 }
 
 .search-section {
@@ -96,6 +100,7 @@ body[data-font="Koulen"] { font-family: 'Koulen', sans-serif; }
   margin: 0 auto;
   gap: 10px;
   flex-wrap: wrap;
+  justify-content: center; /* Center items in form */
 }
 
 .search-input {
@@ -202,6 +207,7 @@ body[data-font="Koulen"] { font-family: 'Koulen', sans-serif; }
   font-size: 0.9rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  width: 100%;
 }
 
 /* Footer Menu */
@@ -223,13 +229,14 @@ body[data-font="Koulen"] { font-family: 'Koulen', sans-serif; }
 .footer-menu a {
   color: #ffd700;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.85rem; /* Adjusted for smaller screens */
   text-decoration: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
   transition: color 0.3s ease;
+  padding: 5px; /* Add some padding for touch targets */
 }
 
 .footer-menu a:hover {
@@ -237,7 +244,7 @@ body[data-font="Koulen"] { font-family: 'Koulen', sans-serif; }
 }
 
 .footer-menu i {
-  font-size: 1.3rem;
+  font-size: 1.1rem; /* Adjusted for smaller screens */
 }
 
 
@@ -257,7 +264,7 @@ body[data-font="Koulen"] { font-family: 'Koulen', sans-serif; }
     margin-bottom: 1rem;
 }
 
-/* Summary Table */
+/* Summary Table - Example for other sections */
 .summary-table {
   width: 100%;
   border-collapse: collapse;
@@ -304,11 +311,11 @@ body[data-font="Koulen"] { font-family: 'Koulen', sans-serif; }
 }
 
 
-/* iOS PWA Prompt */
-#iosPrompt {
+/* PWA Prompt */
+.pwa-prompt {
   display: none;
   position: fixed;
-  bottom: 80px;
+  bottom: 80px; /* Above footer menu */
   left: 10px;
   right: 10px;
   background-color: #fff3cd;
@@ -320,13 +327,48 @@ body[data-font="Koulen"] { font-family: 'Koulen', sans-serif; }
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   z-index: 9999;
   animation: slideIn 0.3s ease-out;
+  text-align: center;
 }
 
-#iosPromptClose {
+.pwa-prompt-close {
   float: right;
   font-weight: bold;
   cursor: pointer;
   margin-left: 10px;
+}
+
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1a1a2e; /* Dark background similar to body */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    color: white;
+    font-size: 1.2rem;
+    font-family: "Noto Sans Khmer", sans-serif;
+    transition: opacity 0.5s ease-out;
+}
+
+.spinner {
+    border: 8px solid rgba(255, 255, 255, 0.3);
+    border-top: 8px solid #ffd700; /* Yellow */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Animations */
@@ -365,6 +407,19 @@ body[data-font="Koulen"] { font-family: 'Koulen', sans-serif; }
   .footer-menu {
       background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
   }
+  .footer-menu a span {
+      font-size: 0.75rem; /* Further reduce font size for very small screens */
+  }
+  .footer-menu i {
+      font-size: 1rem;
+  }
+  .search-input {
+      min-width: unset; /* Allow input to shrink on very small screens */
+      width: 100%;
+  }
+  .search-btn {
+      width: 100%;
+  }
 }
 /* Related Words Section */
 .related-words-card {
@@ -387,21 +442,27 @@ body[data-font="Koulen"] { font-family: 'Koulen', sans-serif; }
 .related-words-card ul {
   list-style: none;
   padding: 0;
+  display: flex;
+  flex-wrap: wrap; /* Allow words to wrap */
+  gap: 8px; /* Space between words */
+  max-height: 400px; /* Limit height for alphabetical list */
+  overflow-y: auto; /* Scroll if content overflows */
+  padding-right: 10px; /* Space for scrollbar */
 }
 
 .related-words-card li {
-  padding: 10px 5px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 8px 12px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
   cursor: pointer;
-  transition: color 0.3s ease, background-color 0.3s ease;
-  border-radius: 5px;
-}
-
-.related-words-card li:last-child {
-  border-bottom: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 0.95rem;
+  white-space: nowrap; /* Keep words on a single line */
 }
 
 .related-words-card li:hover {
+  background-color: rgba(255, 215, 0, 0.5);
   color: #1a1a2e;
-  background-color: rgba(255, 215, 0, 0.8);
+  transform: translateY(-2px);
 }
