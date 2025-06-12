@@ -61,7 +61,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const resultDiv = document.getElementById("result");
     const historySection = document.getElementById('history-section');
     const bookmarkSection = document.getElementById('bookmark-section');
-    const homeSection = document.getElementById('home'); // Get the home section
+    const aboutUsSection = document.getElementById('about-us');
+    const contactUsSection = document.getElementById('contact-us');
+    const homeSection = document.getElementById('home');
+    const loadingScreen = document.getElementById('loadingScreen');
+
+    // Hide loading screen after a short delay
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500); // Wait for fade out to complete
+        }, 1000); // Display loading screen for 1 second
+    });
 
     // Function to sort Khmer words alphabetically
     function sortKhmerWords(words) {
@@ -71,9 +84,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to display all words alphabetically in the home section
     function displayAllWordsAlphabetically() {
         const sortedWords = sortKhmerWords(Object.keys(dictionary));
-        const allWordsContainer = document.createElement('div');
-        allWordsContainer.id = 'all-words-alphabetical';
-        allWordsContainer.className = 'related-words-card'; // Reusing styling
+        let allWordsContainer = document.getElementById('all-words-alphabetical');
+        if (!allWordsContainer) {
+            allWordsContainer = document.createElement('div');
+            allWordsContainer.id = 'all-words-alphabetical';
+            allWordsContainer.className = 'related-words-card';
+            homeSection.appendChild(allWordsContainer);
+        } else {
+            allWordsContainer.innerHTML = ''; // Clear existing content
+        }
         
         const title = document.createElement('h4');
         title.textContent = 'ពាក្យទាំងអស់ (តាមលំដាប់អក្សរក្រម)';
@@ -90,32 +109,29 @@ document.addEventListener('DOMContentLoaded', function () {
             list.appendChild(listItem);
         });
         allWordsContainer.appendChild(list);
-        homeSection.appendChild(allWordsContainer); // Append to the home section
     }
 
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         const query = input.value.trim();
 
-        // Clear previous results and all words display
-        resultDiv.innerHTML = '';
+        resultDiv.innerHTML = ''; // Clear previous results
         const existingAllWords = document.getElementById('all-words-alphabetical');
         if (existingAllWords) {
-            existingAllWords.remove();
+            existingAllWords.remove(); // Remove alphabetical list when searching
         }
-        hideAllSections(); // Hide other sections when searching
-        homeSection.style.display = 'block'; // Ensure home section is visible for search results
+        hideAllSections(); 
+        homeSection.style.display = 'block'; 
 
         if (!query) {
             displayAllWordsAlphabetically(); // Re-display all words if search is empty
-            return; // Exit if the search box is empty
+            return;
         }
 
         const exactMatchEntry = dictionary[query];
         const relatedWords = Object.keys(dictionary).filter(word => word.includes(query) && word !== query);
         let foundSomething = false;
 
-        // 1. Display the exact match if found
         if (exactMatchEntry) {
             foundSomething = true;
             const resultCard = document.createElement('div');
@@ -130,7 +146,6 @@ document.addEventListener('DOMContentLoaded', function () {
             addToHistory(query);
         }
 
-        // 2. Display related words if any are found
         if (relatedWords.length > 0) {
             foundSomething = true;
             const relatedCard = document.createElement('div');
@@ -144,11 +159,8 @@ document.addEventListener('DOMContentLoaded', function () {
             relatedWords.forEach(word => {
                 const listItem = document.createElement('li');
                 listItem.textContent = word;
-                
-                // Add click listener to each related word
                 listItem.addEventListener('click', () => {
                     input.value = word;
-                    // Automatically trigger a new search
                     form.dispatchEvent(new Event('submit', { bubbles: true }));
                 });
                 list.appendChild(listItem);
@@ -157,7 +169,6 @@ document.addEventListener('DOMContentLoaded', function () {
             resultDiv.appendChild(relatedCard);
         }
 
-        // 3. Display 'no result' message if nothing was found
         if (!foundSomething) {
             const noResultDiv = document.createElement('div');
             noResultDiv.className = 'no-result';
@@ -166,66 +177,111 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // iOS PWA prompt
+    // PWA Prompt (iOS and Android)
+    const pwaPrompt = document.getElementById('pwaPrompt');
+    const pwaPromptText = document.getElementById('pwaPromptText');
+
     function isiOS() {
         return /iphone|ipad|ipod/i.test(navigator.userAgent.toLowerCase());
+    }
+
+    function isAndroid() {
+        return /android/i.test(navigator.userAgent.toLowerCase());
     }
 
     function isInStandaloneMode() {
         return ('standalone' in window.navigator) && window.navigator.standalone;
     }
 
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        if (!isInStandaloneMode()) {
+            pwaPromptText.textContent = 'បន្ថែមកម្មវិធីនេះទៅកាន់អេក្រង់ដើមរបស់អ្នកសម្រាប់បទពិសោធន៍កាន់តែប្រសើរ!';
+            pwaPrompt.style.display = 'block';
+        }
+    });
+
     if (isiOS() && !isInStandaloneMode()) {
         setTimeout(() => {
-            document.getElementById('iosPrompt').style.display = 'block';
-        }, 1500);
+            pwaPromptText.textContent = 'ដើម្បីបន្ថែមកម្មវិធីនេះទៅអេក្រង់ដើមរបស់អ្នក សូមចុចប៊ូតុង "Share" រួចជ្រើសរើស "Add to Home Screen"។';
+            pwaPrompt.style.display = 'block';
+        }, 3000); // Delay for iOS prompt
+    } else if (isAndroid() && !isInStandaloneMode() && !deferredPrompt) {
+        // Fallback for Android if beforeinstallprompt doesn't fire immediately
+        setTimeout(() => {
+            pwaPromptText.textContent = 'បន្ថែមកម្មវិធីនេះទៅកាន់អេក្រង់ដើមរបស់អ្នកសម្រាប់បទពិសោធន៍កាន់តែប្រសើរ! (ចុច Menu បន្ទាប់មក "Add to Home Screen")';
+            pwaPrompt.style.display = 'block';
+        }, 3000); // Delay for Android fallback prompt
     }
 
-    document.getElementById('iosPromptClose').onclick = function () {
-        document.getElementById('iosPrompt').style.display = 'none';
+    document.getElementById('pwaPromptClose').onclick = function () {
+        pwaPrompt.style.display = 'none';
     };
 
     // Font rotation
     const fonts = ["Hanuman", "Kantumruy Pro", "Battambang", "Bayon", "Nokora", "Moul", "Chenla", "Content", "Khmer", "Koulen"];
     let currentIndex = 0;
     window.rotateFont = function (event) {
-        event.preventDefault();
+        if (event) event.preventDefault(); // Prevent default if called from an event
         currentIndex = (currentIndex + 1) % fonts.length;
         document.body.setAttribute("data-font", fonts[currentIndex]);
     }
+    document.getElementById('font-rotate-btn-footer').addEventListener('click', rotateFont);
     
-    // Navigation
-    window.goToTop = function(event) {
-        event.preventDefault();
-        window.scrollTo({top: 0, behavior: 'smooth'});
-        hideAllSections();
-        homeSection.style.display = 'block'; // Show the home section
-        displayAllWordsAlphabetically(); // Re-display all words on home
-        resultDiv.innerHTML = ''; // Clear search results when going home
-        input.value = ''; // Clear search input
-    }
-    
-    window.showSection = function(event, id) {
-        event.preventDefault();
-        hideAllSections();
-        const section = document.getElementById(id);
-        if (section) {
-          section.style.display = 'block';
-          section.scrollIntoView({behavior: 'smooth', block: 'start'});
-        }
-    }
-    
+    // Navigation functions (updated to use specific IDs)
     function hideAllSections() {
-        document.querySelectorAll('.hidden-section').forEach(sec => {
+        document.querySelectorAll('section').forEach(sec => {
           sec.style.display = 'none';
         });
-        homeSection.style.display = 'none'; // Hide the home section
         resultDiv.innerHTML = ''; // Clear search results when navigating
         const existingAllWords = document.getElementById('all-words-alphabetical');
         if (existingAllWords) {
             existingAllWords.remove();
         }
+        input.value = ''; // Clear search input on navigation
     }
+
+    document.getElementById('home-btn-footer').addEventListener('click', (event) => {
+        event.preventDefault();
+        hideAllSections();
+        homeSection.style.display = 'block';
+        displayAllWordsAlphabetically();
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+
+    document.getElementById('history-btn-footer').addEventListener('click', (event) => {
+        event.preventDefault();
+        hideAllSections();
+        renderHistory();
+        historySection.style.display = 'block';
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+
+    document.getElementById('bookmark-btn-footer').addEventListener('click', (event) => {
+        event.preventDefault();
+        hideAllSections();
+        renderBookmark();
+        bookmarkSection.style.display = 'block';
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+
+    document.getElementById('about-btn-footer').addEventListener('click', (event) => {
+        event.preventDefault();
+        hideAllSections();
+        aboutUsSection.style.display = 'block';
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+
+    document.getElementById('contact-btn-footer').addEventListener('click', (event) => {
+        event.preventDefault();
+        hideAllSections();
+        contactUsSection.style.display = 'block';
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+
 
     // Bookmark and History
     let historyWords = JSON.parse(localStorage.getItem('historyWords') || '[]');
@@ -243,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const historyList = document.getElementById('history-list');
         historyList.innerHTML = '';
         if (historyWords.length === 0) {
-            historyList.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.7);">No history yet.</p>';
+            historyList.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.7);">មិនទាន់មានប្រវត្តិស្វែងរកនៅឡើយទេ។</p>';
             return;
         }
         historyWords.forEach(word => {
@@ -255,34 +311,18 @@ document.addEventListener('DOMContentLoaded', function () {
             li.addEventListener('click', () => {
                 input.value = word;
                 form.dispatchEvent(new Event('submit'));
-                hideAllSections(); // Hide history section after clicking an item
-                homeSection.style.display = 'block'; // Show home section
+                hideAllSections();
+                homeSection.style.display = 'block';
             });
             historyList.appendChild(li);
         });
     }
     
-    const historyBtn = document.getElementById('history-btn');
-    if (historyBtn) {
-        historyBtn.addEventListener('click', (event) => {
-            event.preventDefault();
-            if (historySection.style.display === 'none' || historySection.style.display === '') {
-                hideAllSections();
-                renderHistory();
-                historySection.style.display = 'block';
-            } else {
-                historySection.style.display = 'none';
-                homeSection.style.display = 'block'; // Show home when hiding history
-                displayAllWordsAlphabetically(); // Re-display all words
-            }
-        });
-    }
-
     function renderBookmark() {
         const bookmarkList = document.getElementById('bookmark-list');
         bookmarkList.innerHTML = '';
         if (bookmarkWords.length === 0) {
-            bookmarkList.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.7);">No bookmarks yet.</p>';
+            bookmarkList.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.7);">មិនទាន់មានពាក្យចំណាំនៅឡើយទេ។</p>';
             return;
         }
         bookmarkWords.forEach(word => {
@@ -294,26 +334,10 @@ document.addEventListener('DOMContentLoaded', function () {
             li.addEventListener('click', () => {
                 input.value = word;
                 form.dispatchEvent(new Event('submit'));
-                hideAllSections(); // Hide bookmark section after clicking an item
-                homeSection.style.display = 'block'; // Show home section
+                hideAllSections();
+                homeSection.style.display = 'block';
             });
             bookmarkList.appendChild(li);
-        });
-    }
-
-    const bookmarkBtn = document.getElementById('bookmark-btn');
-    if (bookmarkBtn) {
-        bookmarkBtn.addEventListener('click', (event) => {
-            event.preventDefault();
-            if (bookmarkSection.style.display === 'none' || bookmarkSection.style.display === '') {
-                hideAllSections();
-                renderBookmark();
-                bookmarkSection.style.display = 'block';
-            } else {
-                bookmarkSection.style.display = 'none';
-                homeSection.style.display = 'block'; // Show home when hiding bookmarks
-                displayAllWordsAlphabetically(); // Re-display all words
-            }
         });
     }
 
