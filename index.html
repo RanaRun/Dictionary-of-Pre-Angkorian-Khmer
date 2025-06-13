@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>វចនានុក្រមខ្មែរ</title>
+    <title>វចនានុក្រមសិលាចារឹកខ្មែរមុនអង្គរខ្មែរ</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Hanuman:wght@400;600&family=Kantumruy+Pro:wght@400;600&family=Battambang:wght@400;600&family=Bayon&family=Nokora:wght@400;600&family=Moul&family=Chenla&family=Content&family=Khmer&family=Koulen&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanuman:wght@400;600&family=Kantumruy+Pro:wght@400;600&family=Battambang:wght@400;600&family=Bayon&family=Nokora:400;600&family=Moul&family=Chenla&family=Content&family=Khmer&family=Koulen&display=swap" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="វចនានុក្រមខ្មែរ">
+    <meta name="apple-mobile-web-app-title" content="វចនានុក្រមសិលាចារឹកខ្មែរមុនអង្គរខ្មែរ">
     <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
 </head>
 <body>
@@ -22,7 +22,7 @@
     <div class="header">
         <div class="container header-content">
             <div class="header-title">
-                <h1>វចនានុក្រមខ្មែរ</h1>
+              ​<h1>វចនានុក្រមសិលាចារឹកខ្មែរមុនអង្គរខ្មែរ</h1>
             </div>
         </div>
     </div>
@@ -30,70 +30,140 @@
     <div class="container main-content">
         <section id="home" class="search-section">
             <h2 class="search-title">
-                <i class="fas fa-search"></i> ស្វែងរកពាក្យ
+                <i class="fas fa-search"></i> <span data-lang-key="search_word">ស្វែងរកពាក្យ</span>
             </h2>
             <form id="searchForm" class="search-form">
                 <input type="text" id="searchInput" class="search-input" placeholder="ស្វែងរកពាក្យ...">
                 <button type="submit" class="search-btn">
-                    <i class="fas fa-play"></i> ស្វែងរក
+                    <i class="fas fa-play"></i> <span data-lang-key="search_btn">ស្វែងរក</span>
                 </button>
             </form>
+            <div id="suggestions-container" class="related-words-card" style="display: none;">
+                <h4><span data-lang-key="suggestions_title">ពាក្យណែនាំ</span></h4>
+                <ul id="suggestions-list">
+                    </ul>
+            </div>
             <div id="result">
                 </div>
         </section>
 
         <section id="history-section" class="hidden-section">
-            <h3><i class="fas fa-history"></i> ប្រវត្តិស្វែងរក</h3>
+            <h3><i class="fas fa-history"></i> <span data-lang-key="history_title">ប្រវត្តិស្វែងរក</span></h3>
             <ul id="history-list">
                 </ul>
         </section>
 
         <section id="bookmark-section" class="hidden-section">
-            <h3><i class="fas fa-bookmark"></i> ពាក្យចំណាំ</h3>
-            <p>អ្នកអាចបន្ថែមពាក្យទៅក្នុងចំណាំរបស់អ្នកដោយចុចលើរូបតំណាងចំណាំ (មុខងារមិនទាន់បានអនុវត្តពេញលេញ)។</p>
+            <h3><i class="fas fa-bookmark"></i> <span data-lang-key="bookmark_title">ពាក្យចំណាំ</span></h3>
+            <p data-lang-key="bookmark_description">អ្នកអាចបន្ថែមពាក្យទៅក្នុងចំណាំរបស់អ្នកដោយចុចលើរូបតំណាងចំណាំ។</p>
             <ul id="bookmark-list">
                 </ul>
         </section>
 
-        <section id="about-us" class="hidden-section">
-            <h3><i class="fas fa-info-circle"></i> អំពីពួកយើង</h3>
-            <p>នេះគឺជាកម្មវិធីវចនានុក្រមខ្មែរដ៏សាមញ្ញមួយ ដែលបង្កើតឡើងដើម្បីជួយអ្នកប្រើប្រាស់ស្វែងរកនិយមន័យនៃពាក្យខ្មែរ។</p>
+        <section id="summary-section" class="hidden-section">
+            <h3><i class="fas fa-book-open"></i> <span data-lang-key="summary_title">អក្សរសង្ខេប</span></h3>
+            <ul class="summary-list">
+                <li>**កិ.**: កិរិយាសព្ទ</li>
+                <li>**ក.វិ.**: កិរិយាវិសេស</li>
+                <li>**គ.**: គុណសព្ទ</li>
+                <li>**ឋ.ន.**: ឋាននាម (នាមឈ្មោះទីកន្លែង)</li>
+                <li>**ឋា.ន.ន.**: ឋានន្តរនាម (នាមឈ្មោះឋានន្តរសក្ដី)</li>
+                <li>**ន.**: នាមសព្ទ</li>
+                <li>**ន.ន.**: នរនាម (នាមឈ្មោះមនុស្ស)</li>
+                <li>**និ.**: និបាតសព្ទ</li>
+                <li>**បុំ.**: បុំលិង្គ</li>
+                <li>**ព.វ.**: ពាក្យវេយ្យាករណ៍</li>
+                <li>**ព.ហុ.**: ពហុវចន</li>
+                <li>**ម.ព.**: មើលពាក្យ</li>
+                <li>**វវេ.**: វេវចនសព្ទ</li>
+                <li>**សម្មតិ.**: សម្មតិកម្ម</li>
+                <li>**សំខ្យា.**: សំខ្យាសព្ទ</li>
+                <li>**ឯក.**: ឯកវចន</li>
+                <li>**សព្វ.**: សព្វនាម</li>
+                <li>**សំ.**: សំស្ក្រឹត</li>
+                <li>**ឥត្ថិ.**: ឥត្ថីលិង្គ</li>
+            </ul>
         </section>
 
-        <section id="contact-us" class="hidden-section">
-            <h3><i class="fas fa-envelope"></i> ទំនាក់ទំនង</h3>
-            <p>ប្រសិនបើអ្នកមានសំណួរ ឬមតិកែលម្អណាមួយ សូមទាក់ទងមកយើងខ្ញុំតាមរយៈ example@example.com ។</p>
+        <section id="team-section" class="hidden-section">
+            <h3><i class="fas fa-users"></i> <span data-lang-key="team_title">ក្រុមការងារ</span></h3>
+            <ul class="team-list">
+                <li>**ភិក្ខុ អមរិន្ទប្បញ្ញោ រុន រ៉ាណា** - តួនាទី: ប្រធាន</li>
+                <li>**លោក មាន បញ្ញា** - តួនាទី: អនុប្រធានទី១</li>
+                <li>**ព្រះតេជគុណ វ៉ែន ជាតិ** - តួនាទី: អនុប្រធានទី២</li>
+                <li>**កញ្ញា ព្រី សុនាថ** - តួនាទី: ប្រធានផ្នែកបោះផ្សាយ</li>
+                <li>**កញ្ញា ពៅ សុជាតា** - តួនាទី: អនុប្រធានផ្នែកបោះផ្សាយ</li>
+                <li>**ព្រះតេជគុណ ចាន់ណារិទ្ធ សំរ៉ឹត** - តួនាទី: ប្រធានផ្នែកព័ត៌មានវិទ្យា</li>
+            </ul>
         </section>
+
+        <section id="about-us" class="hidden-section">
+            <h3><i class="fas fa-info-circle"></i> <span data-lang-key="about_us_title">អំពីពួកយើង</span></h3>
+            <p data-lang-key="about_us_content">នេះគឺជាកម្មវិធីវចនានុក្រមខ្មែរដ៏សាមញ្ញមួយ ដែលបង្កើតឡើងដើម្បីជួយអ្នកប្រើប្រាស់ស្វែងរកនិយមន័យនៃពាក្យខ្មែរ។</p>
+        </section>
+        
+        <section id="settings-section" class="hidden-section">
+            <h3><i class="fas fa-cog"></i> <span data-lang-key="settings_title">កំណត់</span></h3>
+            <div class="setting-item">
+                <label for="theme-toggle" data-lang-key="theme_toggle_label">ប្ដូររូបរាង (យប់/ថ្ងៃ)</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="toggle-switch-slider round"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <label data-lang-key="language_label">ប្ដូរភាសា</label>
+                <div class="language-options">
+                    <button id="lang-km" class="lang-btn active">ខ្មែរ</button>
+                    <button id="lang-en" class="lang-btn">English</button>
+                </div>
+            </div>
+            <div class="setting-item">
+                <label data-lang-key="font_setting_label">ប្ដូរពុម្ពអក្សរ</label>
+                <button id="font-rotate-btn-settings" class="setting-link">
+                    <i class="fas fa-font"></i> <span id="current-font-display"></span>
+                </button>
+            </div>
+            <div class="setting-item">
+                <a href="#" id="about-btn-link" class="setting-link">
+                    <i class="fas fa-info-circle"></i> <span data-lang-key="about_us_title_link">អំពីពួកយើង</span>
+                </a>
+            </div>
+            <div class="setting-item">
+                <a href="#" id="summary-btn-link" class="setting-link">
+                    <i class="fas fa-book-open"></i> <span data-lang-key="summary_title">អក្សរសង្ខេប</span>
+                </a>
+            </div>
+            <div class="setting-item">
+                <a href="#" id="team-btn-link" class="setting-link">
+                    <i class="fas fa-users"></i> <span data-lang-key="team_title">ក្រុមការងារ</span>
+                </a>
+            </div>
+        </section>
+
     </div>
 
     <div class="footer">
-        <p>&copy; 2025 វចនានុក្រមខ្មែរ. រក្សាសិទ្ធិគ្រប់យ៉ាង។</p>
+        <p>&copy; <span data-lang-key="copyright_year">2025</span> <span data-lang-key="app_name_footer">វចនានុក្រមសិលាចារឹកខ្មែរមុនអង្គរ</span>. <span data-lang-key="all_rights_reserved">រក្សាសិទ្ធិគ្រប់យ៉ាងដោយក្រុមអ្នកនិពន្ធកម្ពុជា។</span></p>
     </div>
 
     <div class="footer-menu">
         <a href="#" id="home-btn-footer">
             <i class="fas fa-home"></i>
-            <span>ទំព័រដើម</span>
+            <span data-lang-key="home_menu">ទំព័រដើម</span>
         </a>
         <a href="#" id="history-btn-footer">
             <i class="fas fa-history"></i>
-            <span>ប្រវត្តិ</span>
+            <span data-lang-key="history_menu">ប្រវត្តិ</span>
         </a>
         <a href="#" id="bookmark-btn-footer">
             <i class="fas fa-bookmark"></i>
-            <span>ចំណាំ</span>
+            <span data-lang-key="bookmark_menu">ចំណាំ</span>
         </a>
-        <a href="#" id="about-btn-footer">
-            <i class="fas fa-info-circle"></i>
-            <span>អំពី</span>
-        </a>
-        <a href="#" id="contact-btn-footer">
-            <i class="fas fa-envelope"></i>
-            <span>ទំនាក់ទំនង</span>
-        </a>
-        <a href="#" id="font-rotate-btn-footer">
-            <i class="fas fa-font"></i>
-            <span>ពុម្ពអក្សរ</span>
+        
+        <a href="#" id="settings-btn-footer">
+            <i class="fas fa-cog"></i>
+            <span data-lang-key="settings_menu">កំណត់</span>
         </a>
     </div>
 
