@@ -1,190 +1,273 @@
-<!DOCTYPE html>
-<html lang="km">
-<head>
+<DUCTYPE HTML>
+<html lang="km"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>វចនានុក្រមសិលាចារឹកខ្មែរមុនអង្គរខ្មែរ</title>
-    <link rel="stylesheet" href="style.css">
+    <title>វចនានុក្រមខ្មែរបុរាណ</title>
+    <link rel="icon" href="https://placehold.co/32x32/007bff/ffffff?text=DICT" type="image/png">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Hanuman:wght@400;600&family=Kantumruy+Pro:wght@400;600&family=Battambang:wght@400;600&family=Bayon&family=Nokora:400;600&family=Moul&family=Chenla&family=Content&family=Khmer&family=Koulen&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@300;400;500;600;700&amp;family=Hanuman:wght@400;600&amp;family=Kantumruy+Pro:wght@400;600&amp;family=Battambang:wght@400;600&amp;family=Bayon&amp;family=Nokora:400;600&amp;family=Moul&amp;family=Chenla&amp;family=Content&amp;family=Khmer&amp;family=Koulen&amp;display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+	 <link rel="data" href="data.js">
+
     <link rel="manifest" href="manifest.json">
+​
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="វចនានុក្រមសិលាចារឹកខ្មែរមុនអង្គរខ្មែរ">
-    <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
+    <meta name="apple-mobile-web-app-title" content="វចនានុក្រមខ្មែរបុរាណ"> <link rel="apple-touch-icon" href="https://placehold.co/180x180/007bff/ffffff?text=DICT">
+
+    <meta property="og:url" content="https://khmerdict.com/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="វចនានុក្រមខ្មែរបុរាណ - Dictionary of Pre-Angkor Khmer"> <meta property="og:description" content="រហ័ស គ្មានពាណិជ្ជកម្ម និងងាយស្រួលប្រើប្រាស់">
+	<meta property="og:image" content="https://khmerdict.com/OG.jpg">
+
+    <meta name="twitter:title" content="វចនានុក្រមខ្មែរបុរាណ - Dictionary of Pre-Angkor Khmer"> <meta name="twitter:description" content="រហ័ស គ្មានពាណិជ្ជកម្ម និងងាយស្រួលប្រើប្រាស់">
+	<meta name="twitter:image" content="https://khmerdict.com/OG.jpg">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="twitter:domain" content="khmerdict.com">
+	<meta property="twitter:url" content="https://khmerdict.com/">
+    <meta name="robots" content="noindex, nofollow">
 </head>
-<body>
-    <div id="loadingScreen" class="loading-screen">
+
+<body data-font="Chenla">
+    <div class="loading-screen" id="loading-screen" style="opacity: 0; display: none;">
         <div class="spinner"></div>
-        <p>សូមរង់ចាំ...</p>
+        <p data-lang-key="loading_message">កំពុងផ្ទុកទិន្នន័យ...</p>
     </div>
 
-    <div class="header">
-        <div class="container header-content">
-            <div class="header-title">
-             <h1>
-	វចនានុក្រមសិលាចារឹកខ្មែរមុនអង្គរខ្មែរ<br>
-	<span style="font-size: 18px;">រៀបចំដោយ: ក្រុមអ្នកនិពន្ធកម្ពុជា</span>
-		</h1>
-
-            </div>
+    <header class="header">
+        <div class="header-top">
+            <h1 class="header-title-text" data-lang-key="app_name">វចនានុក្រមខ្មែរបុរាណ</h1>
         </div>
-    </div>
-
-    <div class="container main-content">
-        <section id="home" class="search-section">
-            <h2 class="search-title">
-                <i class="fas fa-search"></i> <span data-lang-key="search_word">ស្វែងរកពាក្យ</span>
-            </h2>
-            <form id="searchForm" class="search-form">
-                <input type="text" id="searchInput" class="search-input" placeholder="ស្វែងរកពាក្យ...">
-                <button type="submit" class="search-btn">
-                    <i class="fas fa-play"></i> <span data-lang-key="search_btn">ស្វែងរក</span>
-                </button>
+        <div class="header-bottom">
+            <form id="search-form" class="search-form" autocomplete="off">
+                <input type="search" id="search-input" class="search-input" data-lang-key="search_placeholder" placeholder="ស្វែងរក...">
             </form>
-            <div id="suggestions-container" class="related-words-card" style="display: none;">
-                <h4><span data-lang-key="suggestions_title">ពាក្យណែនាំ</span></h4>
-                <ul id="suggestions-list">
-                    </ul>
-            </div>
-            <div id="result">
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="home-view" class="main-section">
+            <div id="word-of-the-day-section">
+                <div class="word-of-the-day-header">
+                    <h3 data-lang-key="word_of_the_day_title">ពាក្យប្រចាំថ្ងៃ​</h3> <div class="date-display">
+                        <i class="fas fa-calendar-alt"></i>
+                       <span id="current-date">២១/មិថុនា/២០២៥</span>
+                    </div>
                 </div>
+
+                <div class="word-of-the-day-card" id="word-of-the-day-card-1">
+                    <div class="main-word-container">
+                        <p class="wotd-main-word"><span id="wotd-word-1">អ្នាច៑សមុទ្រ</span></p>
+                        <i class="far fa-bookmark wotd-bookmark-icon" id="wotd-bookmark-icon-1" style="display: inline-block;"></i>
+                    </div>
+                    <div class="pos-definition-container">
+                        <p class="wotd-pos" id="wotd-pos-1">(ន)</p>
+                        <p class="wotd-definition" id="wotd-definition-1">អំណាចសមុទ្រ</p>
+                    </div>
+                    <div class="romanized-latin-container">
+                        <p class="wotd-romanized" id="wotd-romanized-1">aneachsamoat</p>
+                        <p class="wotd-latin" id="wotd-latin-1">Latin: Potestas Maris</p>
+                    </div>
+                    <div class="source-example-container">
+                        <p class="wotd-source" id="wotd-source-1">ប្រភព: k.</p>
+                        <p class="wotd-example" id="wotd-example-1">ឧទាហរណ៍: គ្មាន</p>
+                    </div>
+                </div>
+
+                <div class="word-of-the-day-card" id="word-of-the-day-card-2">
+                    <div class="main-word-container">
+                        <p class="wotd-main-word"><span id="wotd-word-2">វ្រៃអង្គល៑</span></p>
+                        <i class="far fa-bookmark wotd-bookmark-icon" id="wotd-bookmark-icon-2" style="display: inline-block;"></i>
+                    </div>
+                    <div class="pos-definition-container">
+                        <p class="wotd-pos" id="wotd-pos-2">(ន.ន.បុំ.)</p>
+                        <p class="wotd-definition" id="wotd-definition-2">ព្រៃអង្គល (នង្គ័ល)</p>
+                    </div>
+                    <div class="romanized-latin-container">
+                        <p class="wotd-romanized" id="wotd-romanized-2">vraiangala</p>
+                        <p class="wotd-latin" id="wotd-latin-2">Latin: Silva Aratri</p>
+                    </div>
+                    <div class="source-example-container">
+                        <p class="wotd-source" id="wotd-source-2">ប្រភព: K.904</p>
+                        <p class="wotd-example" id="wotd-example-2"></p>
+                    </div>
+                </div>
+
+                <div class="word-of-the-day-card" id="word-of-the-day-card-3">
+                    <div class="main-word-container">
+                        <p class="wotd-main-word"><span id="wotd-word-3">វាអ្នស៑</span></p>
+                        <i class="far fa-bookmark wotd-bookmark-icon" id="wotd-bookmark-icon-3" style="display: inline-block;"></i>
+                    </div>
+                    <div class="pos-definition-container">
+                        <p class="wotd-pos" id="wotd-pos-3">(ន.ន.បុំ.)</p>
+                        <p class="wotd-definition" id="wotd-definition-3">បុរស (នាម) អ្នស</p>
+                    </div>
+                    <div class="romanized-latin-container">
+                        <p class="wotd-romanized" id="wotd-romanized-3">veaanas</p>
+                        <p class="wotd-latin" id="wotd-latin-3">Latin: Vir Anas</p>
+                    </div>
+                    <div class="source-example-container">
+                        <p class="wotd-source" id="wotd-source-3">ប្រភព: k. 115</p>
+                        <p class="wotd-example" id="wotd-example-3">ឧទាហរណ៍: គ្មាន</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section id="history-section" class="hidden-section">
-            <h3><i class="fas fa-history"></i> <span data-lang-key="history_title">ប្រវត្តិស្វែងរក</span></h3>
-            <ul id="history-list">
+        <section id="search-results-section" class="hidden-section main-section">
+            <h3 class="section-title" data-lang-key="search_results_title">លទ្ធផលស្វែងរក</h3>
+            <div id="result-display" class="result-card-content">
+                <div class="main-word-container">
+                    <p class="result-word"><span id="result-word"></span></p>
+                    <div class="word-actions">
+                        <i class="far fa-bookmark result-bookmark-icon" id="result-bookmark-icon"></i>
+                        <a id="report-word-link" class="action-icon" href="#" title="រាយការណ៍ពាក្យខុស" style="display: none;">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-messenger" viewBox="0 0 16 16">
+  <path d="M0 7.76C0 3.301 3.493 0 8 0s8 3.301 8 7.76-3.493 7.76-8 7.76c-.81 0-1.586-.107-2.316-.307a.64.64 0 0 0-.427.03l-1.588.702a.64.64 0 0 1-.898-.566l-.044-1.423a.64.64 0 0 0-.215-.456C.956 12.108 0 10.092 0 7.76m5.546-1.459-2.35 3.728c-.225.358.214.761.551.506l2.525-1.916a.48.48 0 0 1 .578-.002l1.869 1.402a1.2 1.2 0 0 0 1.735-.32l2.35-3.728c.226-.358-.214-.761-.551-.506L9.728 7.381a.48.48 0 0 1-.578.002L7.281 5.98a1.2 1.2 0 0 0-1.735.32z"/>
+</svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="pos-definition-container">
+                    <p class="result-pos" id="result-pos"></p>
+                    <p class="result-definition" id="result-definition"></p>
+                </div>
+                <div class="romanized-latin-container">
+                    <p class="result-romanized" id="result-romanized"></p>
+                    <p class="result-latin" id="result-latin"></p>
+                </div>
+                <div class="source-example-container">
+                    <p class="result-source" id="result-source"></p>
+                    <p class="result-example" id="result-example"></p>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="history-view" class="hidden-section main-section">
+            <h3 class="section-title" data-lang-key="history_title">ប្រវត្តិស្វែងរក</h3>
+            <ul id="history-list" class="list-items">
                 </ul>
+            <p id="no-history-message" class="empty-list-message hidden" data-lang-key="no_history">មិនទាន់មានប្រវត្តិស្វែងរកទេ។</p>
+            <div class="button-group" style="text-align: center;">
+                <button id="clear-history-btn" class="action-btn clear-btn" data-lang-key="clear_history_button">សម្អាតប្រវត្តិ</button>
+            </div>
         </section>
-
-        <section id="bookmark-section" class="hidden-section">
-            <h3><i class="fas fa-bookmark"></i> <span data-lang-key="bookmark_title">ពាក្យចំណាំ</span></h3>
-            <p data-lang-key="bookmark_description">អ្នកអាចបន្ថែមពាក្យទៅក្នុងចំណាំរបស់អ្នកដោយចុចលើរូបតំណាងចំណាំ។</p>
-            <ul id="bookmark-list">
+	<section id="bookmark-view" class="hidden-section main-section">
+            <h3 class="section-title" data-lang-key="bookmark_title">ពាក្យចំណាំ</h3>
+            <ul id="bookmark-list" class="list-items">
                 </ul>
+            <p id="no-bookmark-message" class="empty-list-message hidden" data-lang-key="no_bookmarks">មិនទាន់មានពាក្យចំណាំទេ។</p>
+            <div class="button-group" style="text-align: center;">
+                <button id="clear-bookmarks-btn" class="action-btn clear-btn" data-lang-key="clear_bookmarks_button">សម្អាតចំណាំ</button>
+            </div>
         </section>
 
-        <section id="summary-section" class="hidden-section">
-            <h3><i class="fas fa-book-open"></i> <span data-lang-key="summary_title">អក្សរសង្ខេប</span></h3>
+        <section id="settings-view" class="hidden-section main-section">
+            <h3 class="section-title" data-lang-key="settings_title">កំណត់</h3>
+            <div class="setting-group">
+                <div class="setting-item">
+                    <span data-lang-key="language_setting">ភាសា</span>
+                    <div class="language-options">
+                        <button id="lang-km-btn" class="lang-btn active" data-lang-key="lang_khmer">ខ្មែរ</button>
+                        <button id="lang-en-btn" class="lang-btn" data-lang-key="lang_english">English</button>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <span data-lang-key="font_setting">ពុម្ពអក្សរ</span>
+                    <button id="font-rotate-btn" class="font-btn">
+                        <span id="current-font-display">Chenla</span> <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <div class="setting-item">
+                    <a href="#" id="about-btn-link" class="setting-link">
+                        <i class="fas fa-info-circle"></i> <span data-lang-key="about_title">អំពីយើង</span>
+                    </a>
+                </div>
+                <div class="setting-item">
+                    <a href="#" id="summary-btn-link" class="setting-link">
+                        <i class="fas fa-file-alt"></i> <span data-lang-key="summary_title">សេចក្តីសង្ខេប</span>
+                    </a>
+                </div>
+                <div class="setting-item">
+                    <a href="#" id="team-btn-link" class="setting-link">
+                        <i class="fas fa-users"></i> <span data-lang-key="team_title">ក្រុមការងារ</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about-view" class="hidden-section main-section">
+            <h3 class="section-title" data-lang-key="about_title">អំពីយើង</h3>
+            <p data-lang-key="about_content">កម្មវិធីវចនានុក្រមនេះត្រូវបានបង្កើតឡើងសម្រាប់គោលបំណងស្រាវជ្រាវ និងសិក្សាអំពីពាក្យពេចន៍ខ្មែរបុរាណ។ វាត្រូវបានបង្កើតឡើងដោយក្រុមអ្នកនិពន្ធកម្ពុជា។</p>
+        </section>
+
+        <section id="summary-view" class="hidden-section main-section">
+            <h3 class="section-title" data-lang-key="summary_title">សេចក្តីសង្ខេប</h3>
+            <p data-lang-key="summary_intro">វចនានុក្រមនេះផ្តោតជាសំខាន់លើពាក្យពេចន៍ពីសិលាចារឹកខ្មែរមុនសម័យអង្គរ ដែលជាផ្នែកមួយដ៏សំខាន់នៃប្រវត្តិសាស្រ្ត និងវប្បធម៌ខ្មែរ។</p>
             <ul class="summary-list">
-                <li>**កិ.**: កិរិយាសព្ទ</li>
-                <li>**ក.វិ.**: កិរិយាវិសេស</li>
-                <li>**គ.**: គុណសព្ទ</li>
-                <li>**ឋ.ន.**: ឋាននាម (នាមឈ្មោះទីកន្លែង)</li>
-                <li>**ឋា.ន.ន.**: ឋានន្តរនាម (នាមឈ្មោះឋានន្តរសក្ដី)</li>
-                <li>**ន.**: នាមសព្ទ</li>
-                <li>**ន.ន.**: នរនាម (នាមឈ្មោះមនុស្ស)</li>
-                <li>**និ.**: និបាតសព្ទ</li>
-                <li>**បុំ.**: បុំលិង្គ</li>
-                <li>**ព.វ.**: ពាក្យវេយ្យាករណ៍</li>
-                <li>**ព.ហុ.**: ពហុវចន</li>
-                <li>**ម.ព.**: មើលពាក្យ</li>
-                <li>**វវេ.**: វេវចនសព្ទ</li>
-                <li>**សម្មតិ.**: សម្មតិកម្ម</li>
-                <li>**សំខ្យា.**: សំខ្យាសព្ទ</li>
-                <li>**ឯក.**: ឯកវចន</li>
-                <li>**សព្វ.**: សព្វនាម</li>
-                <li>**សំ.**: សំស្ក្រឹត</li>
-                <li>**ឥត្ថិ.**: ឥត្ថីលិង្គ</li>
+                <li data-lang-key="summary_point_1">ប្រមូលផ្តុំពាក្យពីសិលាចារឹកខ្មែរមុនអង្គរ។</li>
+                <li data-lang-key="summary_point_2">រួមបញ្ចូលទាំងថ្នាក់ពាក្យ និយមន័យ ប្រភព និងឧទាហរណ៍។</li>
+                <li data-lang-key="summary_point_3">ជួយដល់ការស្រាវជ្រាវ និងការសិក្សាភាសាខ្មែរបុរាណ។</li>
             </ul>
         </section>
 
-        <section id="team-section" class="hidden-section">
-            <h3><i class="fas fa-users"></i> <span data-lang-key="team_title">ក្រុមការងារ</span></h3>
+        <section id="team-view" class="hidden-section main-section">
+            <h3 class="section-title" data-lang-key="team_title">ក្រុមការងារ</h3>
             <ul class="team-list">
-                <li>**ភិក្ខុ អមរិន្ទប្បញ្ញោ រុន រ៉ាណា** - តួនាទី: ប្រធាន</li>
-                <li>**លោក មាន បញ្ញា** - តួនាទី: អនុប្រធានទី១</li>
-                <li>**ព្រះតេជគុណ វ៉ែន ជាតិ** - តួនាទី: អនុប្រធានទី២</li>
-                <li>**កញ្ញា ព្រី សុនាថ** - តួនាទី: ប្រធានផ្នែកបោះផ្សាយ</li>
-                <li>**កញ្ញា ពៅ សុជាតា** - តួនាទី: អនុប្រធានផ្នែកបោះផ្សាយ</li>
-                <li>**ព្រះតេជគុណ ចាន់ណារិទ្ធ សំរ៉ឹត** - តួនាទី: ប្រធានផ្នែកព័ត៌មានវិទ្យា</li>
-				<li>Facebook: ក្រុមអ្នកនិពន្ធកម្ពុជា </li>
+				<li data-lang-key="team_member_1">ព្រះអមរិន្ទ រុន រ៉ាណា - អ្នកអភិវឌ្ឍន៍កម្មវិធី</li>
+				<li data-lang-key="team_member_2">ព្រះអមរិន្ទ រុន រ៉ាណា - អ្នកស្រាវជ្រាវភាសា</li>
+				<li data-lang-key="team_member_3">ព្រះអមរិន្ទ រុន រ៉ាណា - អ្នករចនាក្រាហ្វិក</li>
+				<li data-lang-key="team_member_4">ព្រះតេជគុណ ចាន់ណារិទ្ធ សំរិត - អ្នកបញ្ចូលទិន្នន័យ</li>
+				<li data-lang-key="team_member_5">លោក មាន បញ្ញា- អ្នកបញ្ចូលទិន្នន័យ</li>
+				<li data-lang-key="team_member_6">កញ្ញា ពៅ សុជាតា- អ្នកបញ្ចូលទិន្នន័យ</li>
             </ul>
-        </section>
-
-        <section id="about-us" class="hidden-section">
-            <h3><i class="fas fa-info-circle"></i> <span data-lang-key="about_us_title">អំពីពួកយើង</span></h3>
- <h1>អំពីពួកយើង</h1>
-<p>យើងខ្ញុំជា “ក្រុមអ្នកនិពន្ធកម្ពុជា” ដែលមានបំណងប្រាថ្នាចង់ថែរក្សានិងលើកស្ទួយភាសាជាតិខ្មែរ តាមរយៈការបង្កើត វចនានុក្រមបុរាណ មួយនេះឡើង។ វចនានុក្រមរបស់យើងខ្ញុំផ្ដោតសំខាន់លើពាក្យពេចន៍ ឃ្លាឃ្លោង ក៏ដូចជាកន្សោមភាសាដែលធ្លាប់ត្រូវបានគេប្រើប្រាស់តាំងពីសម័យបុរាណ ហើយបច្ចុប្បន្ននេះអាចនឹងពុំសូវមានអ្នកស្គាល់ ឬប្រើប្រាស់ទូលំទូលាយទៀតឡើយ។</p>
-<h1>ចក្ខុវិស័យរបស់យើងខ្ញុំ</h1>
-<p>ចក្ខុវិស័យរបស់យើងខ្ញុំគឺចង់ឱ្យវចនានុក្រមនេះក្លាយជា ឃ្លាំងចំណេះដឹងដ៏មានតម្លៃ មួយសម្រាប់អ្នកសិក្សាស្រាវជ្រាវ និស្សិត អ្នកនិពន្ធ និងសាធារណជនទូទៅដែលចាប់អារម្មណ៍នឹងអក្សរសាស្ត្រ និងភាសាខ្មែរបុរាណ។ យើងខ្ញុំសង្ឃឹមថាវចនានុក្រមនេះនឹងជួយឱ្យអ្នកអានយល់កាន់តែច្បាស់អំពីឫសគល់នៃភាសាខ្មែរ ព្រមទាំងតម្លៃវប្បធម៌ដែលបង្កប់នៅក្នុងពាក្យពេចន៍នីមួយៗ។</P>
-<h1>អ្វីដែលយើងខ្ញុំផ្ដល់ជូន</h1>
-<p>វចនានុក្រមបុរាណរបស់យើងខ្ញុំមិនត្រឹមតែផ្ដល់និយមន័យនៃពាក្យប៉ុណ្ណោះទេ ថែមទាំងមានបញ្ចូលនូវ ឧទាហរណ៍នៃការប្រើប្រាស់ ពីអត្ថបទបុរាណនានា និរុត្តិសាស្ត្រនៃពាក្យ និងការពន្យល់លម្អិតអំពីបរិបទនៃការប្រើប្រាស់ពាក្យទាំងនោះផងដែរ។ ក្រុមការងាររបស់យើងខ្ញុំបានចំណាយពេលយ៉ាងយកចិត្តទុកដាក់ក្នុងការស្រាវជ្រាវ និងចងក្រងទិន្នន័យពីឯកសារបុរាណជាច្រើន ដើម្បីធានានូវភាពត្រឹមត្រូវ និងគ្រប់ជ្រុងជ្រោយ។<p>
-
-
-			</p>
+            <p class="team-contact" data-lang-key="team_contact">សម្រាប់ការសាកសួរ ឬសំណូមពរផ្សេងៗ សូមទាក់ទងមកកាន់ពួកយើងតាមរយៈ: info@khmerdict.com</p>
         </section>
         
-        <section id="settings-section" class="hidden-section">
-            <h3><i class="fas fa-cog"></i> <span data-lang-key="settings_title">កំណត់</span></h3>
-            <div class="setting-item">
-                <label for="theme-toggle" data-lang-key="theme_toggle_label">ប្ដូររូបរាង (យប់/ថ្ងៃ)</label>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="theme-toggle">
-                    <span class="toggle-switch-slider round"></span>
-                </label>
-            </div>
-            <div class="setting-item">
-                <label data-lang-key="language_label">ប្ដូរភាសា</label>
-                <div class="language-options">
-                    <button id="lang-km" class="lang-btn active">ខ្មែរ</button>
-                    <button id="lang-en" class="lang-btn">English</button>
-                </div>
-            </div>
-            <div class="setting-item">
-                <label data-lang-key="font_setting_label">ប្ដូរពុម្ពអក្សរ</label>
-                <button id="font-rotate-btn-settings" class="setting-link">
-                    <i class="fas fa-font"></i> <span id="current-font-display"></span>
-                </button>
-            </div>
-            <div class="setting-item">
-                <a href="#" id="about-btn-link" class="setting-link">
-                    <i class="fas fa-info-circle"></i> <span data-lang-key="about_us_title_link">អំពីពួកយើង</span>
-                </a>
-            </div>
-            <div class="setting-item">
-                <a href="#" id="summary-btn-link" class="setting-link">
-                    <i class="fas fa-book-open"></i> <span data-lang-key="summary_title">អក្សរសង្ខេប</span>
-                </a>
-            </div>
-            <div class="setting-item">
-                <a href="#" id="team-btn-link" class="setting-link">
-                    <i class="fas fa-users"></i> <span data-lang-key="team_title">ក្រុមការងារ</span>
-                </a>
-            </div>
-        </section>
+        <div id="suggestions-container" class="main-section hidden-section">
+            <h3 class="section-title" id="suggestions-title" data-lang-key="suggestions_title">ពាក្យណែនាំ</h3>
+             <ul id="suggestions-list-flat" class="list-items">
+                </ul>
+        </div>
 
-    </div>
+    </main>
 
-    <div class="footer">
-        <p>&copy; <span data-lang-key="copyright_year">2025</span> <span data-lang-key="app_name_footer">វចនានុក្រមសិលាចារឹកខ្មែរមុនអង្គរ</span>. <span data-lang-key="all_rights_reserved">រក្សាសិទ្ធិគ្រប់យ៉ាងដោយក្រុមអ្នកនិពន្ធកម្ពុជា។</span></p>
-    </div>
+    <footer class="footer">
+        <p>© <span data-lang-key="copyright_year">2025</span> <span data-lang-key="app_name_footer">វចនានុក្រមខ្មែរ</span>. <span data-lang-key="all_rights_reserved">រក្សាសិទ្ធិគ្រប់យ៉ាងដោយក្រុមអ្នកនិពន្ធកម្ពុជា។</span></p>
+    </footer>
 
-    <div class="footer-menu">
-        <a href="#" id="home-btn-footer">
+    <nav class="footer-menu">
+        <a href="#home-view" id="home-nav-btn" class="nav-item active">
             <i class="fas fa-home"></i>
             <span data-lang-key="home_menu">ទំព័រដើម</span>
         </a>
-        <a href="#" id="history-btn-footer">
+        <a href="#history-view" id="history-nav-btn" class="nav-item">
             <i class="fas fa-history"></i>
             <span data-lang-key="history_menu">ប្រវត្តិ</span>
         </a>
-        <a href="#" id="bookmark-btn-footer">
+        <a href="#bookmark-view" id="bookmark-nav-btn" class="nav-item">
             <i class="fas fa-bookmark"></i>
             <span data-lang-key="bookmark_menu">ចំណាំ</span>
         </a>
-        
-        <a href="#" id="settings-btn-footer">
+        <a href="#settings-view" id="settings-nav-btn" class="nav-item">
             <i class="fas fa-cog"></i>
             <span data-lang-key="settings_menu">កំណត់</span>
         </a>
-    </div>
+    </nav>
 
-    <div id="pwaPrompt" class="pwa-prompt">
-        <span id="pwaPromptClose" class="pwa-prompt-close">&times;</span>
-        <p id="pwaPromptText"></p>
+    <div id="pwa-install-prompt" class="pwa-prompt">
+        <p id="pwa-prompt-text">តើអ្នកចង់ដំឡើងកម្មវិធីនេះទៅលើឧបករណ៍របស់អ្នកទេ?</p>
+        <button id="install-app-btn" data-lang-key="install_button">ដំឡើង</button>
+        <button id="pwa-prompt-close-btn" class="action-btn clear-btn" data-lang-key="close_button">បិទ</button>
     </div>
 
     <script src="script.js"></script>
-</body>
-</html>
+
+</body></html>
