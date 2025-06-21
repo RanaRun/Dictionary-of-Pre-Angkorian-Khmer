@@ -519,15 +519,20 @@ document.addEventListener('DOMContentLoaded', function () {
             displayWordsFlatList(sortKhmerWords(Object.keys(dictionary)));
         });
 
+        // ############### កូដដែលបានកែប្រែ ###############
         searchInput.addEventListener('blur', () => {
             // Delay hiding to allow click on suggestion items
             setTimeout(() => {
-                if (!searchInput.value.trim()) { // Only hide if search input is empty
+                // The check for `!searchInput.value.trim()` ensures that if the user
+                // clicks away while the search box is empty, the suggestions hide.
+                if (!searchInput.value.trim()) { 
                     suggestionsContainer.classList.add('hidden-section');
-                    setAppView('home-view'); // Go back to home view only if no search was made
+                    // The problematic line `setAppView('home-view');` has been removed
+                    // to prevent the view from undesirably switching back to home on desktop.
                 }
-            }, 200);
+            }, 200); 
         });
+        // #############################################
         
         searchInput.addEventListener('input', () => {
             const searchTerm = searchInput.value.trim();
